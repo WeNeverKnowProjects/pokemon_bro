@@ -11,7 +11,6 @@ part 'pokeball_gift_cubit.freezed.dart';
 @lazySingleton
 class PokeballGiftCubit extends Cubit<PokeballGiftState> {
   PokeballGiftCubit() : super(const PokeballGiftState());
-  Timer? _timer;
 
   pokeballGiftListen({
     String? email,
@@ -27,7 +26,7 @@ class PokeballGiftCubit extends Cubit<PokeballGiftState> {
       return;
     }
 
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+    Timer.periodic(const Duration(minutes: 1), (timer) {
       var currentDiff = DateTime.now().difference(loginAt);
       var currentMinuteDiff = currentDiff.inMinutes;
       Logger.d("minute diff running on $currentMinuteDiff");
