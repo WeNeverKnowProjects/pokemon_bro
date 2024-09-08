@@ -77,8 +77,21 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<(Failure?, Member?)> updateMember(String email) async {
     try {
       final result = await datasource.updateMember(email);
+      if (result == null) return getError(SubmitFailure("Member not found."));
       var member = Member.fromJson(result);
       Logger.d("member ${member.pokeball} ${member.loginAt}");
+      return getItems<Member?>(member);
+    } on FirestoreException catch (e) {
+      return getError(SubmitFailure(e.message));
+    }
+  }
+
+  @override
+  Future<(Failure?, Member?)> addMember(String email) async {
+    try {
+      final result = await datasource.addMember(email);
+      if (result == null) return getError(SubmitFailure("Member not found."));
+      var member = Member.fromJson(result);
       return getItems<Member?>(member);
     } on FirestoreException catch (e) {
       return getError(SubmitFailure(e.message));

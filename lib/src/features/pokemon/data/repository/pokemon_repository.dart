@@ -19,12 +19,18 @@ class PokemonRepositoryImpl implements PokemonRepository {
     try {
       final result = await datasource.fetchPokemon(url);
       var items = <Map<String, dynamic>>[];
+
       items = (result ?? []).map((e) {
         var item = e['pokemon'] as Map<String, dynamic>;
+        var versionDetails = e['version_details'][0];
+        var encounterDetails = versionDetails['encounter_details'][0];
         String? url = e['pokemon']['url'];
         // item.addAll({"id": int.tryParse((url)?.getLastUrlPath() ?? "")});
         Logger.d("url $url ${((url)?.getLastUrlPath() ?? "")}");
         item['id'] = int.tryParse((url)?.getLastUrlPath() ?? "");
+        item['chance'] = encounterDetails['chance'];
+        item['min_level'] = encounterDetails['min_level'];
+        item['max_level'] = encounterDetails['max_level'];
         return item;
       }).toList();
       // for (var pokemon in result ?? []) {

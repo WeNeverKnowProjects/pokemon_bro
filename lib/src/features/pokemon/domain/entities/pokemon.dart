@@ -14,6 +14,11 @@ class Pokemon with _$Pokemon {
 
     final int? level, //dont know what field
     final String? url,
+    //ignore: invalid_annotation_target
+    @JsonKey(name: "min_level") final int? minLevel,
+    //ignore: invalid_annotation_target
+    @JsonKey(name: "max_level") final int? maxLevel,
+    final int? chance,
   }) = _Pokemon;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>

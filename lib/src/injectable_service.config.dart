@@ -31,6 +31,8 @@ import 'features/authentication/data/repository/authentication_repository_impl.d
     as _i207;
 import 'features/authentication/domain/repository/authentication_repository.dart'
     as _i972;
+import 'features/authentication/domain/usecase/add_member_usecase.dart'
+    as _i498;
 import 'features/authentication/domain/usecase/auth_state_change_member_usecase.dart'
     as _i590;
 import 'features/authentication/domain/usecase/login_with_email_usecase.dart'
@@ -104,12 +106,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i862.SignUpUsecase(gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i211.SignOutUsecase>(
         () => _i211.SignOutUsecase(gh<_i972.AuthenticationRepository>()));
+    gh.lazySingleton<_i498.AddMemberUsecase>(
+        () => _i498.AddMemberUsecase(gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i101.AreaRepository>(
         () => _i383.AreaRepositoryImpl(gh<_i192.AreaDatasource>()));
     gh.factory<_i57.AuthChangeCubit>(() => _i57.AuthChangeCubit(
           gh<_i590.AuthStateChangeMemberUsecase>(),
           gh<_i211.SignOutUsecase>(),
           gh<_i718.UpdateMemberUsecase>(),
+          gh<_i498.AddMemberUsecase>(),
         ));
     gh.lazySingleton<_i743.PokemonRepository>(
         () => _i175.PokemonRepositoryImpl(gh<_i995.PokemonDatasource>()));

@@ -24,7 +24,14 @@ mixin _$Pokemon {
   String? get name => throw _privateConstructorUsedError;
   int? get number => throw _privateConstructorUsedError; //dont know what field
   int? get level => throw _privateConstructorUsedError; //dont know what field
-  String? get url => throw _privateConstructorUsedError;
+  String? get url =>
+      throw _privateConstructorUsedError; //ignore: invalid_annotation_target
+  @JsonKey(name: "min_level")
+  int? get minLevel =>
+      throw _privateConstructorUsedError; //ignore: invalid_annotation_target
+  @JsonKey(name: "max_level")
+  int? get maxLevel => throw _privateConstructorUsedError;
+  int? get chance => throw _privateConstructorUsedError;
 
   /// Serializes this Pokemon to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +47,15 @@ abstract class $PokemonCopyWith<$Res> {
   factory $PokemonCopyWith(Pokemon value, $Res Function(Pokemon) then) =
       _$PokemonCopyWithImpl<$Res, Pokemon>;
   @useResult
-  $Res call({int? id, String? name, int? number, int? level, String? url});
+  $Res call(
+      {int? id,
+      String? name,
+      int? number,
+      int? level,
+      String? url,
+      @JsonKey(name: "min_level") int? minLevel,
+      @JsonKey(name: "max_level") int? maxLevel,
+      int? chance});
 }
 
 /// @nodoc
@@ -63,6 +78,9 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
     Object? number = freezed,
     Object? level = freezed,
     Object? url = freezed,
+    Object? minLevel = freezed,
+    Object? maxLevel = freezed,
+    Object? chance = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -85,6 +103,18 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      minLevel: freezed == minLevel
+          ? _value.minLevel
+          : minLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxLevel: freezed == maxLevel
+          ? _value.maxLevel
+          : maxLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      chance: freezed == chance
+          ? _value.chance
+          : chance // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -96,7 +126,15 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
       __$$PokemonImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? id, String? name, int? number, int? level, String? url});
+  $Res call(
+      {int? id,
+      String? name,
+      int? number,
+      int? level,
+      String? url,
+      @JsonKey(name: "min_level") int? minLevel,
+      @JsonKey(name: "max_level") int? maxLevel,
+      int? chance});
 }
 
 /// @nodoc
@@ -117,6 +155,9 @@ class __$$PokemonImplCopyWithImpl<$Res>
     Object? number = freezed,
     Object? level = freezed,
     Object? url = freezed,
+    Object? minLevel = freezed,
+    Object? maxLevel = freezed,
+    Object? chance = freezed,
   }) {
     return _then(_$PokemonImpl(
       id: freezed == id
@@ -139,6 +180,18 @@ class __$$PokemonImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      minLevel: freezed == minLevel
+          ? _value.minLevel
+          : minLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxLevel: freezed == maxLevel
+          ? _value.maxLevel
+          : maxLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      chance: freezed == chance
+          ? _value.chance
+          : chance // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -146,7 +199,15 @@ class __$$PokemonImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PokemonImpl extends _Pokemon {
-  const _$PokemonImpl({this.id, this.name, this.number, this.level, this.url})
+  const _$PokemonImpl(
+      {this.id,
+      this.name,
+      this.number,
+      this.level,
+      this.url,
+      @JsonKey(name: "min_level") this.minLevel,
+      @JsonKey(name: "max_level") this.maxLevel,
+      this.chance})
       : super._();
 
   factory _$PokemonImpl.fromJson(Map<String, dynamic> json) =>
@@ -164,10 +225,20 @@ class _$PokemonImpl extends _Pokemon {
 //dont know what field
   @override
   final String? url;
+//ignore: invalid_annotation_target
+  @override
+  @JsonKey(name: "min_level")
+  final int? minLevel;
+//ignore: invalid_annotation_target
+  @override
+  @JsonKey(name: "max_level")
+  final int? maxLevel;
+  @override
+  final int? chance;
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, name: $name, number: $number, level: $level, url: $url)';
+    return 'Pokemon(id: $id, name: $name, number: $number, level: $level, url: $url, minLevel: $minLevel, maxLevel: $maxLevel, chance: $chance)';
   }
 
   @override
@@ -179,12 +250,18 @@ class _$PokemonImpl extends _Pokemon {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.level, level) || other.level == level) &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.minLevel, minLevel) ||
+                other.minLevel == minLevel) &&
+            (identical(other.maxLevel, maxLevel) ||
+                other.maxLevel == maxLevel) &&
+            (identical(other.chance, chance) || other.chance == chance));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, number, level, url);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, number, level, url, minLevel, maxLevel, chance);
 
   /// Create a copy of Pokemon
   /// with the given fields replaced by the non-null parameter values.
@@ -208,7 +285,10 @@ abstract class _Pokemon extends Pokemon {
       final String? name,
       final int? number,
       final int? level,
-      final String? url}) = _$PokemonImpl;
+      final String? url,
+      @JsonKey(name: "min_level") final int? minLevel,
+      @JsonKey(name: "max_level") final int? maxLevel,
+      final int? chance}) = _$PokemonImpl;
   const _Pokemon._() : super._();
 
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$PokemonImpl.fromJson;
@@ -222,7 +302,15 @@ abstract class _Pokemon extends Pokemon {
   @override
   int? get level; //dont know what field
   @override
-  String? get url;
+  String? get url; //ignore: invalid_annotation_target
+  @override
+  @JsonKey(name: "min_level")
+  int? get minLevel; //ignore: invalid_annotation_target
+  @override
+  @JsonKey(name: "max_level")
+  int? get maxLevel;
+  @override
+  int? get chance;
 
   /// Create a copy of Pokemon
   /// with the given fields replaced by the non-null parameter values.

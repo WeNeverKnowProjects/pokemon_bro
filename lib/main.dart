@@ -11,6 +11,7 @@ import 'package:pokemon/src/injectable_service.dart';
 initTimer(BuildContext context) async {
   final member = context.read<AuthChangeCubit>().state;
   Logger.d("init timer $member");
+  if (member?.loginAt != null && member!.pokeball! >= 20) return;
   context.read<PokeballGiftCubit>().pokeballGiftListen(
         email: member?.email,
         loginAt: member?.loginAt,

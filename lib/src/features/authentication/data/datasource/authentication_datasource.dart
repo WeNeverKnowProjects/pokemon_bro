@@ -10,7 +10,8 @@ abstract class AuthenticationDatasource {
   Future<User?> createAccount(String email, String password);
   Stream<User?> authStateChange();
   Future<void> logout();
-  Future<Map<String, dynamic>> updateMember(String email);
+  Future<Map<String, dynamic>?> updateMember(String email);
+  Future<Map<String, dynamic>?> addMember(String email);
 }
 
 @LazySingleton(as: AuthenticationDatasource)
@@ -28,26 +29,12 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
         },
       );
 
-  Future<void> _addMember(String email) async {
-    final collection = await _getMember(email);
-    if (collection.isEmpty) {
-      var uid = DateTime.now().microsecondsSinceEpoch.toString();
-      await firestore.setData(
-          path: "/member/$uid",
-          body: Map.from({
-            "email": email,
-            "pokeball": 10,
-            "login_at": DateTime.now().toString(),
-          }));
-    }
-  }
-
   @override
   Future<User?> loginWithEmail(String email, String password) async {
     try {
       final user = await firebaseAuth.signIn(email, password);
       if (user == null) throw FirebaseAuthenticationException("User not found");
-      // await _addMember(email);
+
       return user;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthenticationException("${e.code} - ${e.message}");
@@ -58,7 +45,7 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
   Future<User?> createAccount(String email, String password) async {
     try {
       final user = await firebaseAuth.createAccount(email, password);
-      // await _addMember(email);
+
       return user;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthenticationException("${e.code} ${e.message}");
@@ -96,28 +83,52 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>> updateMember(String email) async {
+  Future<Map<String, dynamic>?> updateMember(String email) async {
     try {
       final collection = await _getMember(email);
-      String uid = "${DateTime.now().microsecondsSinceEpoch}";
-      int pokeball = 10;
-      String loginAt = DateTime.now().toString();
+
+      // String uid = "${DateTime.now().microsecondsSinceEpoch}";
+      // int pokeball = 10;
+      // String loginAt = DateTime.now().toString();
 
       if (collection.isNotEmpty) {
-        uid = collection.first['uid'];
-        pokeball = (collection.first['pokeball'] as int) + 5;
-        loginAt = collection.first['login_at'];
-      }
+        String uid = collection.first['uid'];
+        int pokeball = (collection.first['pokeball'] as int) + 5;
+        String loginAt = collection.first['login_at'];
 
-      Map<String, dynamic> body = Map.from({
-        "email": email,
-        "pokeball": pokeball,
-        "login_at": loginAt,
-      });
-      await firestore.setData(path: "/member/$uid", body: body);
-      var members = await _getMember(email);
-      Logger.d("updateMember ${members.first}");
-      return members.first;
+        Map<String, dynamic> body = Map.from({
+          "email": email,
+          "pokeball": pokeball,
+          "login_at": loginAt,
+        });
+        await firestore.setData(path: "/member/$uid", body: body);
+        var members = await _getMember(email);
+        Logger.d("updateMember ${members.first}");
+        return members.first;
+      }
+    } catch (e) {
+      throw FirestoreException("$e");
+    }
+    return null;
+  }
+
+  @override
+  Future<Map<String, dynamic>?> addMember(String email) async {
+    try {
+      final collection = await _getMember(email);
+      if (collection.isEmpty) {
+        var uid = DateTime.now().microsecondsSinceEpoch.toString();
+        await firestore.setData(
+            path: "/member/$uid",
+            body: Map.from({
+              "email": email,
+              "pokeball": 10,
+              "login_at": DateTime.now().toString(),
+            }));
+        var member = await _getMember(email);
+        return member.first;
+      }
+      return null;
     } catch (e) {
       throw FirestoreException("$e");
     }

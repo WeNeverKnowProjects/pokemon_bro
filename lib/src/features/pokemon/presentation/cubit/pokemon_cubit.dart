@@ -27,6 +27,10 @@ class PokemonCubit extends Cubit<PokemonState> {
         state: LoadState.failed,
       ));
     } else {
+      //sort pokemons by change desc
+      items!.sort(
+        (a, b) => b.chance!.compareTo(a.chance ?? 0),
+      );
       emit(state.copyWith(
         state: LoadState.success,
         pokemons: items,

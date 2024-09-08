@@ -29,18 +29,17 @@ class AreaScreen extends StatefulWidget {
 class _AreaScreenState extends State<AreaScreen> {
   @override
   void initState() {
-    updateMember();
+    addMember();
     WidgetsBinding.instance.addPostFrameCallback((event) {
-      // context.read<AreaCubit>().loadArea();
-      // initTimer();
+      context.read<AreaCubit>().loadArea();
     });
 
     super.initState();
   }
 
-  updateMember() {
+  addMember() {
     final auth = context.read<AuthChangeCubit>();
-    auth.updateMember(auth.state?.email ?? "");
+    auth.addMember(auth.state?.email ?? "");
   }
 
   initTimer() async {
@@ -56,11 +55,6 @@ class _AreaScreenState extends State<AreaScreen> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        // BlocListener<AuthChangeCubit, Member?>(listener: (context, state) {
-        //   if (state?.loginAt != null) {
-        //     initTimer();
-        //   }
-        // }),
         BlocListener<AreaCubit, AreaState>(
           listener: (context, state) {
             Logger.d("state //${state.state}");
