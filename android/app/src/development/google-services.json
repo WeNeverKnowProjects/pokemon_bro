@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839293404510",
+    "project_id": "pokemon-dev-e23a5",
+    "storage_bucket": "pokemon-dev-e23a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839293404510:android:8554e281c7c0d2419f3bcf",
+        "android_client_info": {
+          "package_name": "com.app.pokemon.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBTfbzAvS8ffO2sYNFtVbDrFZqBUK5v-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

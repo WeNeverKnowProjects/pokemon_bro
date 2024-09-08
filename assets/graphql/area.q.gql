@@ -1,0 +1,11 @@
+query locations {
+  locations {
+    count
+    next
+    previous
+    results {
+      url
+      name
+    }
+  }
+}
