@@ -8,4 +8,5 @@ abstract class AuthenticationRepository {
   Future<(Failure?, void)> signOut();
   Future<(Failure?, Member?)> updateMember(String email);
   Future<(Failure?, Member?)> addMember(String email);
+  Future<(Failure?, Member?)> loadMember(String email);
 }

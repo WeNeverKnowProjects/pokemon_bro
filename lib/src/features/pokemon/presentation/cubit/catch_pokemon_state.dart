@@ -6,5 +6,6 @@ class CatchPokemonState with _$CatchPokemonState {
   const factory CatchPokemonState({
     @Default(LoadState.initial) final LoadState catchState,
     final String? errorMessage,
+    final Pokemon? pokemon,
   }) = _CatchPokemonState;
 }

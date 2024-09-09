@@ -12,6 +12,7 @@ abstract class AuthenticationDatasource {
   Future<void> logout();
   Future<Map<String, dynamic>?> updateMember(String email);
   Future<Map<String, dynamic>?> addMember(String email);
+  Future<Map<String, dynamic>?> loadMember(String email);
 }
 
 @LazySingleton(as: AuthenticationDatasource)
@@ -148,6 +149,20 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
 
         return member.first;
       }
+
+      var pokemonCollection = await _getPokemons(collection.first['uid']);
+      collection[0]['pokemons'] = pokemonCollection;
+
+      return collection.first;
+    } catch (e) {
+      throw FirestoreException("$e");
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>?> loadMember(String email) async {
+    try {
+      final collection = await _getMember(email);
 
       var pokemonCollection = await _getPokemons(collection.first['uid']);
       collection[0]['pokemons'] = pokemonCollection;

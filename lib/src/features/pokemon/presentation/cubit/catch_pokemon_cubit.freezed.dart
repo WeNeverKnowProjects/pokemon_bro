@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CatchPokemonState {
   LoadState get catchState => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  Pokemon? get pokemon => throw _privateConstructorUsedError;
 
   /// Create a copy of CatchPokemonState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +33,9 @@ abstract class $CatchPokemonStateCopyWith<$Res> {
           CatchPokemonState value, $Res Function(CatchPokemonState) then) =
       _$CatchPokemonStateCopyWithImpl<$Res, CatchPokemonState>;
   @useResult
-  $Res call({LoadState catchState, String? errorMessage});
+  $Res call({LoadState catchState, String? errorMessage, Pokemon? pokemon});
+
+  $PokemonCopyWith<$Res>? get pokemon;
 }
 
 /// @nodoc
@@ -52,6 +55,7 @@ class _$CatchPokemonStateCopyWithImpl<$Res, $Val extends CatchPokemonState>
   $Res call({
     Object? catchState = null,
     Object? errorMessage = freezed,
+    Object? pokemon = freezed,
   }) {
     return _then(_value.copyWith(
       catchState: null == catchState
@@ -62,7 +66,25 @@ class _$CatchPokemonStateCopyWithImpl<$Res, $Val extends CatchPokemonState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      pokemon: freezed == pokemon
+          ? _value.pokemon
+          : pokemon // ignore: cast_nullable_to_non_nullable
+              as Pokemon?,
     ) as $Val);
+  }
+
+  /// Create a copy of CatchPokemonState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PokemonCopyWith<$Res>? get pokemon {
+    if (_value.pokemon == null) {
+      return null;
+    }
+
+    return $PokemonCopyWith<$Res>(_value.pokemon!, (value) {
+      return _then(_value.copyWith(pokemon: value) as $Val);
+    });
   }
 }
 
@@ -74,7 +96,10 @@ abstract class _$$CatchPokemonStateImplCopyWith<$Res>
       __$$CatchPokemonStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({LoadState catchState, String? errorMessage});
+  $Res call({LoadState catchState, String? errorMessage, Pokemon? pokemon});
+
+  @override
+  $PokemonCopyWith<$Res>? get pokemon;
 }
 
 /// @nodoc
@@ -92,6 +117,7 @@ class __$$CatchPokemonStateImplCopyWithImpl<$Res>
   $Res call({
     Object? catchState = null,
     Object? errorMessage = freezed,
+    Object? pokemon = freezed,
   }) {
     return _then(_$CatchPokemonStateImpl(
       catchState: null == catchState
@@ -102,6 +128,10 @@ class __$$CatchPokemonStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      pokemon: freezed == pokemon
+          ? _value.pokemon
+          : pokemon // ignore: cast_nullable_to_non_nullable
+              as Pokemon?,
     ));
   }
 }
@@ -110,7 +140,7 @@ class __$$CatchPokemonStateImplCopyWithImpl<$Res>
 
 class _$CatchPokemonStateImpl extends _CatchPokemonState {
   const _$CatchPokemonStateImpl(
-      {this.catchState = LoadState.initial, this.errorMessage})
+      {this.catchState = LoadState.initial, this.errorMessage, this.pokemon})
       : super._();
 
   @override
@@ -118,10 +148,12 @@ class _$CatchPokemonStateImpl extends _CatchPokemonState {
   final LoadState catchState;
   @override
   final String? errorMessage;
+  @override
+  final Pokemon? pokemon;
 
   @override
   String toString() {
-    return 'CatchPokemonState(catchState: $catchState, errorMessage: $errorMessage)';
+    return 'CatchPokemonState(catchState: $catchState, errorMessage: $errorMessage, pokemon: $pokemon)';
   }
 
   @override
@@ -132,11 +164,13 @@ class _$CatchPokemonStateImpl extends _CatchPokemonState {
             (identical(other.catchState, catchState) ||
                 other.catchState == catchState) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.pokemon, pokemon) || other.pokemon == pokemon));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, catchState, errorMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, catchState, errorMessage, pokemon);
 
   /// Create a copy of CatchPokemonState
   /// with the given fields replaced by the non-null parameter values.
@@ -151,13 +185,16 @@ class _$CatchPokemonStateImpl extends _CatchPokemonState {
 abstract class _CatchPokemonState extends CatchPokemonState {
   const factory _CatchPokemonState(
       {final LoadState catchState,
-      final String? errorMessage}) = _$CatchPokemonStateImpl;
+      final String? errorMessage,
+      final Pokemon? pokemon}) = _$CatchPokemonStateImpl;
   const _CatchPokemonState._() : super._();
 
   @override
   LoadState get catchState;
   @override
   String? get errorMessage;
+  @override
+  Pokemon? get pokemon;
 
   /// Create a copy of CatchPokemonState
   /// with the given fields replaced by the non-null parameter values.

@@ -97,4 +97,16 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       return getError(SubmitFailure(e.message));
     }
   }
+
+  @override
+  Future<(Failure?, Member?)> loadMember(String email) async {
+    try {
+      final result = await datasource.loadMember(email);
+      if (result == null) return getError(SubmitFailure("Member not found."));
+      var member = Member.fromJson(result);
+      return getItems<Member?>(member);
+    } on FirestoreException catch (e) {
+      return getError(SubmitFailure(e.message));
+    }
+  }
 }

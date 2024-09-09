@@ -131,7 +131,7 @@ class _AreaScreenState extends State<AreaScreen> {
                                       child: Text(
                                         snapshot.pokeball == null
                                             ? ""
-                                            : "${snapshot.pokeball}",
+                                            : "${snapshot.pokeballBalance}",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w900,
                                           color: Colors.amber,
@@ -237,7 +237,7 @@ class _AreaScreenState extends State<AreaScreen> {
                                           size: 28,
                                         ),
                                         "in",
-                                        state?.pokeball ?? 0);
+                                        state?.pokeballBalance ?? 0);
                                   },
                                 ),
                               ],
@@ -248,20 +248,22 @@ class _AreaScreenState extends State<AreaScreen> {
                             Flexible(
                                 child: BlocBuilder<AuthChangeCubit, Member?>(
                               builder: (context, state) {
-                                if (state != null &&
-                                    (state.pokemons ?? []).isEmpty) {
+                                if (state == null &&
+                                    (state?.pokemons ?? []).isEmpty) {
                                   return const SizedBox.shrink();
                                 }
                                 return ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: state!.pokemons!.length,
+                                    itemCount: state?.pokemons?.length,
                                     itemBuilder: (context, index) {
-                                      var po = state.pokemons![index];
+                                      var po = state?.pokemons![index];
                                       return Padding(
                                         padding: EdgeInsets.only(
                                           left: index == 0 ? 0 : 30,
                                           right: index ==
-                                                  (state.pokemons!.length - 1)
+                                                  ((state?.pokemons!.length ??
+                                                          0) -
+                                                      1)
                                               ? 30
                                               : 0,
                                         ),
@@ -282,7 +284,7 @@ class _AreaScreenState extends State<AreaScreen> {
                                                 children: [
                                                   ImageNetworkWrapper(
                                                     imageUrl:
-                                                        "$baseImageUrl/${po.id}.png",
+                                                        "$baseImageUrl/${po?.id}.png",
                                                   ),
                                                   Text("${index + 1}"),
                                                 ],
@@ -292,13 +294,13 @@ class _AreaScreenState extends State<AreaScreen> {
                                               height: defaultPadding / 4,
                                             ),
                                             Text(
-                                              "${po.name}",
+                                              "${po?.name}",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             Text(
-                                              "lev => ${po.level}",
+                                              "lev => ${po?.level}",
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -369,6 +371,7 @@ class _AreaScreenState extends State<AreaScreen> {
             area,
             index,
             onTap: (area) {
+              Logger.d("area url ${area.url}");
               context.go('/pokemons', extra: area.url as String);
             },
           );

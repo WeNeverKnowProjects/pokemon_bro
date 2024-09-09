@@ -19,4 +19,6 @@ class Member with _$Member {
   }) = _Member;
 
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
+
+  int get pokeballBalance => (pokeball ?? 0) - (numbers ?? 0);
 }

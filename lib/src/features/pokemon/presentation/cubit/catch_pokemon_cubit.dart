@@ -37,6 +37,7 @@ class CatchPokemonCubit extends Cubit<CatchPokemonState> {
     } else {
       emit(state.copyWith(
         catchState: LoadState.success,
+        pokemon: pokemon,
       ));
     }
   }
