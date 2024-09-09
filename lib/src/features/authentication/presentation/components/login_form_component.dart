@@ -5,16 +5,14 @@ import 'package:pokemon/src/core/constants/constants.dart';
 import 'package:pokemon/src/core/messages/messages.dart';
 import 'package:pokemon/src/core/routes/router.dart';
 import 'package:pokemon/src/core/widgets/buttons/default_button.dart';
+import 'package:pokemon/src/core/widgets/dialog_widget.dart';
 import 'package:pokemon/src/core/widgets/inputs/text_input_field.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_validation_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/login_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/widgets/authentication_widget.dart';
 
 class LoginFormComponent extends StatelessWidget {
-  LoginFormComponent({super.key});
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  const LoginFormComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,6 @@ class LoginFormComponent extends StatelessWidget {
                           !state.loginFormatValidation!.emailFormatValid
                       ? errorEmailFormat
                       : null,
-                  controller: _emailController,
                   onChanged: (val) {
                     context.read<AuthValidationCubit>().validateLogin(
                           email: val,
@@ -63,7 +60,6 @@ class LoginFormComponent extends StatelessWidget {
                           !state.loginFormatValidation!.passwordLengthValid
                       ? errorPasswordLength
                       : null,
-                  controller: _passwordController,
                   onChanged: (val) {
                     context
                         .read<AuthValidationCubit>()
@@ -86,10 +82,8 @@ class LoginFormComponent extends StatelessWidget {
               text: "SIGN IN",
               onPressed: (state.loginValidation?.isFormValid ?? false)
                   ? () {
-                      context.read<AuthValidationCubit>().validateLoginFormat(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          );
+                      // showLoadingDialog(context);
+                      context.read<AuthValidationCubit>().validateLoginFormat();
                     }
                   : null,
             )).child;

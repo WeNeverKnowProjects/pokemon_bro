@@ -20,6 +20,7 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Pokemon {
+  String? get uid => throw _privateConstructorUsedError;
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   int? get number => throw _privateConstructorUsedError; //dont know what field
@@ -48,7 +49,8 @@ abstract class $PokemonCopyWith<$Res> {
       _$PokemonCopyWithImpl<$Res, Pokemon>;
   @useResult
   $Res call(
-      {int? id,
+      {String? uid,
+      int? id,
       String? name,
       int? number,
       int? level,
@@ -73,6 +75,7 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? id = freezed,
     Object? name = freezed,
     Object? number = freezed,
@@ -83,6 +86,10 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
     Object? chance = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -127,7 +134,8 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? uid,
+      int? id,
       String? name,
       int? number,
       int? level,
@@ -150,6 +158,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? id = freezed,
     Object? name = freezed,
     Object? number = freezed,
@@ -160,6 +169,10 @@ class __$$PokemonImplCopyWithImpl<$Res>
     Object? chance = freezed,
   }) {
     return _then(_$PokemonImpl(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -200,7 +213,8 @@ class __$$PokemonImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PokemonImpl extends _Pokemon {
   const _$PokemonImpl(
-      {this.id,
+      {this.uid,
+      this.id,
       this.name,
       this.number,
       this.level,
@@ -213,6 +227,8 @@ class _$PokemonImpl extends _Pokemon {
   factory _$PokemonImpl.fromJson(Map<String, dynamic> json) =>
       _$$PokemonImplFromJson(json);
 
+  @override
+  final String? uid;
   @override
   final int? id;
   @override
@@ -238,7 +254,7 @@ class _$PokemonImpl extends _Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, name: $name, number: $number, level: $level, url: $url, minLevel: $minLevel, maxLevel: $maxLevel, chance: $chance)';
+    return 'Pokemon(uid: $uid, id: $id, name: $name, number: $number, level: $level, url: $url, minLevel: $minLevel, maxLevel: $maxLevel, chance: $chance)';
   }
 
   @override
@@ -246,6 +262,7 @@ class _$PokemonImpl extends _Pokemon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PokemonImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.number, number) || other.number == number) &&
@@ -260,8 +277,8 @@ class _$PokemonImpl extends _Pokemon {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, number, level, url, minLevel, maxLevel, chance);
+  int get hashCode => Object.hash(runtimeType, uid, id, name, number, level,
+      url, minLevel, maxLevel, chance);
 
   /// Create a copy of Pokemon
   /// with the given fields replaced by the non-null parameter values.
@@ -281,7 +298,8 @@ class _$PokemonImpl extends _Pokemon {
 
 abstract class _Pokemon extends Pokemon {
   const factory _Pokemon(
-      {final int? id,
+      {final String? uid,
+      final int? id,
       final String? name,
       final int? number,
       final int? level,
@@ -293,6 +311,8 @@ abstract class _Pokemon extends Pokemon {
 
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$PokemonImpl.fromJson;
 
+  @override
+  String? get uid;
   @override
   int? get id;
   @override

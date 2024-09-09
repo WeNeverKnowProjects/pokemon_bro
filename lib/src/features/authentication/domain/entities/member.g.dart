@@ -14,6 +14,9 @@ _$MemberImpl _$$MemberImplFromJson(Map<String, dynamic> json) => _$MemberImpl(
       loginAt: json['login_at'] == null
           ? null
           : DateTime.parse(json['login_at'] as String),
+      pokemons: (json['pokemons'] as List<dynamic>?)
+          ?.map((e) => Pokemon.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$MemberImplToJson(_$MemberImpl instance) =>
@@ -23,4 +26,5 @@ Map<String, dynamic> _$$MemberImplToJson(_$MemberImpl instance) =>
       'pokeball': instance.pokeball,
       'numbers': instance.numbers,
       'login_at': instance.loginAt?.toIso8601String(),
+      'pokemons': instance.pokemons,
     };

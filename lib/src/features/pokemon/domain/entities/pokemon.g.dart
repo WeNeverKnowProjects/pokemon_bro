@@ -8,6 +8,7 @@ part of 'pokemon.dart';
 
 _$PokemonImpl _$$PokemonImplFromJson(Map<String, dynamic> json) =>
     _$PokemonImpl(
+      uid: json['uid'] as String?,
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       number: (json['number'] as num?)?.toInt(),
@@ -20,6 +21,7 @@ _$PokemonImpl _$$PokemonImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PokemonImplToJson(_$PokemonImpl instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'id': instance.id,
       'name': instance.name,
       'number': instance.number,

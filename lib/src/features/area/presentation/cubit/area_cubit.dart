@@ -14,6 +14,16 @@ class AreaCubit extends Cubit<AreaState> {
   AreaCubit(this._fetchAreaUsecase) : super(const AreaState());
   final FetchAreaUsecase _fetchAreaUsecase;
 
+  init() {
+    if ((state.areas ?? []).isEmpty) {
+      emit(state.copyWith(
+        state: LoadState.initial,
+        errorMessage: null,
+        areas: null,
+      ));
+    }
+  }
+
   loadArea() async {
     emit(state.copyWith(
       state: LoadState.loading,

@@ -15,6 +15,6 @@ class DefaultOutlinedButton extends GeneralButton {
       onPressed: onPressed,
       child: Text(
         text!,
-        style: const TextStyle(color: Color.fromARGB(255, 28, 27, 28)),
+        style: const TextStyle(color: Color.fromARGB(255, 240, 240, 240)),
       ));
 }

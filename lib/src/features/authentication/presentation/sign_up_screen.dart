@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
-import 'package:pokemon/src/features/authentication/presentation/components/authentication_background.dart';
 import 'package:pokemon/src/features/authentication/presentation/components/sign_up_form_component.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_validation_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/signup_cubit.dart';
@@ -67,7 +67,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            const AuthenticationBackground(),
+            const AppBackground(
+                assetImage: "assets/images/cartoon-dragon-character.jpg"),
             _buildForm(),
           ],
         ),

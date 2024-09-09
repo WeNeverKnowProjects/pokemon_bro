@@ -29,6 +29,20 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
         },
       );
 
+  Future<List<Map<String, dynamic>>> _getPokemons(String uid) async {
+    try {
+      var result = firestore.getCollection<Map<String, dynamic>>(
+        path: "/member/$uid/pokemon",
+        builder: (data, id) => data..addAll(Map.from({"uid": id})),
+      );
+
+      return result;
+    } catch (e) {
+      Logger.e("$e");
+    }
+    return [];
+  }
+
   @override
   Future<User?> loginWithEmail(String email, String password) async {
     try {
@@ -129,8 +143,15 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
               "numbers": 0,
             }));
         var member = await _getMember(email);
+        var pokemonCollection = await _getPokemons(member.first['uid']);
+        member[0]['pokemons'] = pokemonCollection;
+
         return member.first;
       }
+
+      var pokemonCollection = await _getPokemons(collection.first['uid']);
+      collection[0]['pokemons'] = pokemonCollection;
+
       return collection.first;
     } catch (e) {
       throw FirestoreException("$e");

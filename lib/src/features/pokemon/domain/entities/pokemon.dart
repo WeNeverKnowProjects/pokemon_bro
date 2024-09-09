@@ -8,6 +8,7 @@ part 'pokemon.g.dart';
 class Pokemon with _$Pokemon {
   const Pokemon._();
   const factory Pokemon({
+    final String? uid,
     final int? id,
     final String? name,
     final int? number, //dont know what field

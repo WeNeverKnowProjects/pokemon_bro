@@ -65,8 +65,10 @@ class MyApp extends StatelessWidget {
             child: MaterialApp.router(
               title: 'Pokemon App',
               debugShowCheckedModeBanner: false,
-
               theme: ThemeData(
+                // bottomSheetTheme: const BottomSheetThemeData(
+                //   backgroundColor: Color.fromARGB(96, 73, 7, 7),
+                // ),
                 textTheme: Theme.of(context).textTheme.apply(
                       bodyColor: Colors.white,
                       displayColor: Colors.white,

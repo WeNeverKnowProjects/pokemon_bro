@@ -27,6 +27,7 @@ mixin _$Member {
 // ignore: invalid_annotation_target
   @JsonKey(name: "login_at")
   DateTime? get loginAt => throw _privateConstructorUsedError;
+  List<Pokemon>? get pokemons => throw _privateConstructorUsedError;
 
   /// Serializes this Member to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $MemberCopyWith<$Res> {
       String? email,
       int? pokeball,
       int? numbers,
-      @JsonKey(name: "login_at") DateTime? loginAt});
+      @JsonKey(name: "login_at") DateTime? loginAt,
+      List<Pokemon>? pokemons});
 }
 
 /// @nodoc
@@ -70,6 +72,7 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
     Object? pokeball = freezed,
     Object? numbers = freezed,
     Object? loginAt = freezed,
+    Object? pokemons = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -92,6 +95,10 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
           ? _value.loginAt
           : loginAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      pokemons: freezed == pokemons
+          ? _value.pokemons
+          : pokemons // ignore: cast_nullable_to_non_nullable
+              as List<Pokemon>?,
     ) as $Val);
   }
 }
@@ -108,7 +115,8 @@ abstract class _$$MemberImplCopyWith<$Res> implements $MemberCopyWith<$Res> {
       String? email,
       int? pokeball,
       int? numbers,
-      @JsonKey(name: "login_at") DateTime? loginAt});
+      @JsonKey(name: "login_at") DateTime? loginAt,
+      List<Pokemon>? pokemons});
 }
 
 /// @nodoc
@@ -129,6 +137,7 @@ class __$$MemberImplCopyWithImpl<$Res>
     Object? pokeball = freezed,
     Object? numbers = freezed,
     Object? loginAt = freezed,
+    Object? pokemons = freezed,
   }) {
     return _then(_$MemberImpl(
       uid: freezed == uid
@@ -151,6 +160,10 @@ class __$$MemberImplCopyWithImpl<$Res>
           ? _value.loginAt
           : loginAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      pokemons: freezed == pokemons
+          ? _value._pokemons
+          : pokemons // ignore: cast_nullable_to_non_nullable
+              as List<Pokemon>?,
     ));
   }
 }
@@ -163,8 +176,10 @@ class _$MemberImpl extends _Member {
       this.email,
       this.pokeball,
       this.numbers,
-      @JsonKey(name: "login_at") this.loginAt})
-      : super._();
+      @JsonKey(name: "login_at") this.loginAt,
+      final List<Pokemon>? pokemons})
+      : _pokemons = pokemons,
+        super._();
 
   factory _$MemberImpl.fromJson(Map<String, dynamic> json) =>
       _$$MemberImplFromJson(json);
@@ -182,10 +197,19 @@ class _$MemberImpl extends _Member {
   @override
   @JsonKey(name: "login_at")
   final DateTime? loginAt;
+  final List<Pokemon>? _pokemons;
+  @override
+  List<Pokemon>? get pokemons {
+    final value = _pokemons;
+    if (value == null) return null;
+    if (_pokemons is EqualUnmodifiableListView) return _pokemons;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Member(uid: $uid, email: $email, pokeball: $pokeball, numbers: $numbers, loginAt: $loginAt)';
+    return 'Member(uid: $uid, email: $email, pokeball: $pokeball, numbers: $numbers, loginAt: $loginAt, pokemons: $pokemons)';
   }
 
   @override
@@ -198,13 +222,14 @@ class _$MemberImpl extends _Member {
             (identical(other.pokeball, pokeball) ||
                 other.pokeball == pokeball) &&
             (identical(other.numbers, numbers) || other.numbers == numbers) &&
-            (identical(other.loginAt, loginAt) || other.loginAt == loginAt));
+            (identical(other.loginAt, loginAt) || other.loginAt == loginAt) &&
+            const DeepCollectionEquality().equals(other._pokemons, _pokemons));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, email, pokeball, numbers, loginAt);
+  int get hashCode => Object.hash(runtimeType, uid, email, pokeball, numbers,
+      loginAt, const DeepCollectionEquality().hash(_pokemons));
 
   /// Create a copy of Member
   /// with the given fields replaced by the non-null parameter values.
@@ -228,7 +253,8 @@ abstract class _Member extends Member {
       final String? email,
       final int? pokeball,
       final int? numbers,
-      @JsonKey(name: "login_at") final DateTime? loginAt}) = _$MemberImpl;
+      @JsonKey(name: "login_at") final DateTime? loginAt,
+      final List<Pokemon>? pokemons}) = _$MemberImpl;
   const _Member._() : super._();
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$MemberImpl.fromJson;
@@ -245,6 +271,8 @@ abstract class _Member extends Member {
   @override
   @JsonKey(name: "login_at")
   DateTime? get loginAt;
+  @override
+  List<Pokemon>? get pokemons;
 
   /// Create a copy of Member
   /// with the given fields replaced by the non-null parameter values.

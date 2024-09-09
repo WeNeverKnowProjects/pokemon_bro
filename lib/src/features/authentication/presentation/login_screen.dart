@@ -1,11 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
-import 'package:pokemon/src/features/authentication/presentation/components/authentication_background.dart';
+
 import 'package:pokemon/src/features/authentication/presentation/components/login_form_component.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_validation_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/login_cubit.dart';
@@ -70,7 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            const AuthenticationBackground(),
+            // const AuthenticationBackground(),
+            const AppBackground(
+                assetImage: "assets/images/cartoon-dragon-character.jpg"),
             _buildTitle(),
             // _buildBody(),
           ],
@@ -98,10 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildBody() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(
+        SizedBox(
           height: defaultPadding * 2,
         ),
         LoginFormComponent()

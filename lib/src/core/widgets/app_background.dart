@@ -2,15 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class AuthenticationBackground extends StatelessWidget {
-  const AuthenticationBackground({super.key});
+class AppBackground extends StatelessWidget {
+  const AppBackground({
+    super.key,
+    required this.assetImage,
+  });
+  final String assetImage;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/cartoon-dragon-character.jpg"),
+          image: AssetImage(assetImage),
           fit: BoxFit.cover,
         ),
       ),

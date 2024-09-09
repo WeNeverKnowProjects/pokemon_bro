@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../constants/constants.dart';
 
@@ -7,13 +8,14 @@ showLoadingDialog(BuildContext context) => showDialog(
     context: context,
     builder: (context) => Center(
           child: Container(
-            height: 70.0,
-            width: 70.0,
-            // padding: const EdgeInsets.all(40),
+            height: 100.0,
+            width: 150.0,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
-            child: const Center(
-              child: CircularProgressIndicator(),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+            ),
+            child: Center(
+              child: Lottie.asset("assets/lotties/loading-animation.json"),
             ),
           ),
         ));
