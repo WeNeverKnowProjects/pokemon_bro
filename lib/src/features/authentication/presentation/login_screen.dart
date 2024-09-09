@@ -1,18 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
-import 'package:pokemon/src/features/authentication/domain/entities/member.dart';
+import 'package:pokemon/src/features/authentication/presentation/components/authentication_background.dart';
 import 'package:pokemon/src/features/authentication/presentation/components/login_form_component.dart';
-import 'package:pokemon/src/features/authentication/presentation/cubit/auth_change_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_validation_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/login_cubit.dart';
 import 'package:pokemon/src/injectable_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  static Widget create(BuildContext context) {
+  static Widget create() {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<LoginCubit>()),
@@ -29,23 +30,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return MultiBlocListener(
       listeners: [
-        // BlocListener<AuthChangeCubit, Member?>(listener: (context, state) {
-        //   if (state != null && state.loginAt != null) {
-        //     if (context.canPop()) {
-        //       context.pop();
-        //     }
-        //   }
-        // }),
         BlocListener<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state.member != null && state.success) {
               context.pop();
-              // context
-              //     .read<AuthChangeCubit>()
-              //     .updateMember(state.member?.email ?? "");
-              // context.read<AuthChangeCubit>().setMember(state.member!);
             }
             if (state.failed) {
               //error logic here
@@ -67,9 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state.loginFormatValidation != null) {
               if (state.loginFormatValidation!.emailFormatValid &&
                   state.loginFormatValidation!.passwordLengthValid) {
-                // BlocProvider.of<LoginCubit>(context).login(
-                //     state.loginFormatValidation!.email,
-                //     state.loginFormatValidation!.password);
                 context.read<LoginCubit>().login(
                     state.loginFormatValidation!.email,
                     state.loginFormatValidation!.password);
@@ -78,24 +66,46 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
       ],
-      child: SafeArea(
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(
-                  height: defaultPadding * 2,
-                ),
-                LoginFormComponent()
-              ],
-            ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            const AuthenticationBackground(),
+            _buildTitle(),
+            // _buildBody(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: defaultPadding, vertical: defaultPadding * 1.5),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.asset("assets/images/pokemon-label.png"),
+              Image.asset("assets/images/pokemon-sub-label.png"),
+              _buildBody(),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildBody() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(
+          height: defaultPadding * 2,
+        ),
+        LoginFormComponent()
+      ],
     );
   }
 }

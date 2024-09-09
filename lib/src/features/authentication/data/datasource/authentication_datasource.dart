@@ -95,11 +95,13 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
         String uid = collection.first['uid'];
         int pokeball = (collection.first['pokeball'] as int) + 5;
         String loginAt = collection.first['login_at'];
+        int numbers = collection.first['numbers'];
 
         Map<String, dynamic> body = Map.from({
           "email": email,
           "pokeball": pokeball,
           "login_at": loginAt,
+          "numbers": numbers,
         });
         await firestore.setData(path: "/member/$uid", body: body);
         var members = await _getMember(email);
@@ -124,11 +126,12 @@ class AuthenticationDatasourceImpl implements AuthenticationDatasource {
               "email": email,
               "pokeball": 10,
               "login_at": DateTime.now().toString(),
+              "numbers": 0,
             }));
         var member = await _getMember(email);
         return member.first;
       }
-      return null;
+      return collection.first;
     } catch (e) {
       throw FirestoreException("$e");
     }

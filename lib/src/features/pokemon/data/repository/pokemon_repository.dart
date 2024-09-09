@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pokemon/src/core/exceptions/exceptions.dart';
 import 'package:pokemon/src/core/extension/string_extension.dart';
@@ -47,6 +48,18 @@ class PokemonRepositoryImpl implements PokemonRepository {
       return getError(FetchFailure(e.message));
     } on UnknownException catch (e) {
       return getError(FetchFailure(e.message));
+    }
+  }
+
+  @override
+  Future<(Failure?, void)> catchPokemon(
+      String memberId, Pokemon pokemon) async {
+    try {
+      await datasource.catchPokemon(memberId, pokemon.toJson());
+      return getItems<VoidCallback>(() {});
+    } on FirestoreException catch (e) {
+      // Logger.e("error ${e.message.toString()}");
+      return getError(SubmitFailure(e.message));
     }
   }
 }

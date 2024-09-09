@@ -5,11 +5,11 @@ import 'package:pokemon/src/features/authentication/presentation/sign_up_screen.
 import 'package:pokemon/src/features/pokemon/presentation/pokemon_screen.dart';
 
 GoRouter router({String? redirect}) => GoRouter(
-      initialLocation: redirect ?? "/login",
+      initialLocation: redirect ?? "/signup",
       routes: [
         GoRoute(
           path: '/login',
-          builder: (context, state) => LoginScreen.create(context),
+          builder: (context, state) => LoginScreen.create(),
         ),
         GoRoute(
           path: '/signup',

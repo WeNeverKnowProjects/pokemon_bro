@@ -51,26 +51,29 @@ class TextInputField extends GeneralInputField {
         onSubmitted: onSubmitted,
         inputFormatters: inputFormatters,
         textAlign: textAlign ?? TextAlign.start,
+        cursorColor: Colors.white,
         decoration: InputDecoration(
+          fillColor: const Color.fromARGB(138, 226, 157, 140),
+          filled: true,
+          focusColor: Colors.white,
           errorText: errorText,
           errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
-          enabledBorder: const OutlineInputBorder(
-              // borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-            width: 0.4,
-          )),
-          focusedBorder: const OutlineInputBorder(
-              // borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-            width: 0.4,
-          )),
-          errorBorder: const OutlineInputBorder(
-              // borderRadius: BorderRadius.circular(12),
-
-              borderSide: BorderSide(
-            color: dangerColor,
-            width: 0.4,
-          )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(
+                width: 0.4,
+              )),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(
+                width: 0.4,
+              )),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(
+                color: dangerColor,
+                width: 0.4,
+              )),
           focusedErrorBorder: const OutlineInputBorder(
               // borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(

@@ -7,12 +7,16 @@ class DefaultButton extends GeneralButton {
   @override
   Widget get child => ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 29, 29, 29)),
+        backgroundColor: const Color.fromARGB(255, 111, 5, 5),
+        disabledBackgroundColor: const Color.fromARGB(162, 156, 156, 156),
+      ),
       onPressed: onPressed,
       child: Text(
         "$text",
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: onPressed == null
+              ? const Color.fromARGB(255, 153, 152, 152)
+              : Colors.white,
         ),
       ));
 }

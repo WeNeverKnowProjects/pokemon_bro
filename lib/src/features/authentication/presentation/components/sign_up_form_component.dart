@@ -24,18 +24,20 @@ class SignUpFormComponent extends StatelessWidget {
           builder: (context, state) {
             return buildField("Email",
                 child: (TextInputField(
-                        errorText: state.signUpFormatValidation != null &&
-                                !state.signUpFormatValidation!.emailFormatValid
-                            ? errorEmailFormat
-                            : null,
-                        controller: _emailController,
-                        onChanged: (val) {
-                          context
-                              .read<AuthValidationCubit>()
-                              .validateSignUp(email: val);
-                        },
-                        prefixIcon: const Icon(Icons.mail_outline_rounded)))
-                    .child);
+                    errorText: state.signUpFormatValidation != null &&
+                            !state.signUpFormatValidation!.emailFormatValid
+                        ? errorEmailFormat
+                        : null,
+                    controller: _emailController,
+                    onChanged: (val) {
+                      context
+                          .read<AuthValidationCubit>()
+                          .validateSignUp(email: val);
+                    },
+                    prefixIcon: const Icon(
+                      Icons.mail_outline_rounded,
+                      color: Colors.white,
+                    ))).child);
           },
         ),
         const SizedBox(
@@ -45,20 +47,21 @@ class SignUpFormComponent extends StatelessWidget {
           builder: (context, state) {
             return buildField("Password",
                 child: (TextInputField(
-                        obscureText: true,
-                        errorText: state.signUpFormatValidation != null &&
-                                !state
-                                    .signUpFormatValidation!.passwordLengthValid
-                            ? errorPasswordLength
-                            : null,
-                        controller: _passwordController,
-                        onChanged: (val) {
-                          context
-                              .read<AuthValidationCubit>()
-                              .validateSignUp(password: val);
-                        },
-                        prefixIcon: const Icon(Icons.lock_outline_rounded)))
-                    .child);
+                    obscureText: true,
+                    errorText: state.signUpFormatValidation != null &&
+                            !state.signUpFormatValidation!.passwordLengthValid
+                        ? errorPasswordLength
+                        : null,
+                    controller: _passwordController,
+                    onChanged: (val) {
+                      context
+                          .read<AuthValidationCubit>()
+                          .validateSignUp(password: val);
+                    },
+                    prefixIcon: const Icon(
+                      Icons.lock_outline_rounded,
+                      color: Colors.white,
+                    ))).child);
           },
         ),
         const SizedBox(
@@ -68,17 +71,19 @@ class SignUpFormComponent extends StatelessWidget {
           builder: (context, state) {
             return buildField("Confirm Password",
                 child: (TextInputField(
-                        obscureText: true,
-                        errorText:
-                            state.signUpFormatValidation?.confirmPasswordError,
-                        controller: _confirmPasswordController,
-                        onChanged: (val) {
-                          context
-                              .read<AuthValidationCubit>()
-                              .validateSignUp(confirmPassword: val);
-                        },
-                        prefixIcon: const Icon(Icons.lock_outline_rounded)))
-                    .child);
+                    obscureText: true,
+                    errorText:
+                        state.signUpFormatValidation?.confirmPasswordError,
+                    controller: _confirmPasswordController,
+                    onChanged: (val) {
+                      context
+                          .read<AuthValidationCubit>()
+                          .validateSignUp(confirmPassword: val);
+                    },
+                    prefixIcon: const Icon(
+                      Icons.lock_outline_rounded,
+                      color: Colors.white,
+                    ))).child);
           },
         ),
         const SizedBox(

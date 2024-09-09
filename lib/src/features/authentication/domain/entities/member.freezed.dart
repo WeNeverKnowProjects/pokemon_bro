@@ -22,8 +22,9 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 mixin _$Member {
   String? get uid => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  int? get pokeball =>
-      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
+  int? get pokeball => throw _privateConstructorUsedError;
+  int? get numbers => throw _privateConstructorUsedError; //numbers of pokemon
+// ignore: invalid_annotation_target
   @JsonKey(name: "login_at")
   DateTime? get loginAt => throw _privateConstructorUsedError;
 
@@ -45,6 +46,7 @@ abstract class $MemberCopyWith<$Res> {
       {String? uid,
       String? email,
       int? pokeball,
+      int? numbers,
       @JsonKey(name: "login_at") DateTime? loginAt});
 }
 
@@ -66,6 +68,7 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
     Object? uid = freezed,
     Object? email = freezed,
     Object? pokeball = freezed,
+    Object? numbers = freezed,
     Object? loginAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -80,6 +83,10 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
       pokeball: freezed == pokeball
           ? _value.pokeball
           : pokeball // ignore: cast_nullable_to_non_nullable
+              as int?,
+      numbers: freezed == numbers
+          ? _value.numbers
+          : numbers // ignore: cast_nullable_to_non_nullable
               as int?,
       loginAt: freezed == loginAt
           ? _value.loginAt
@@ -100,6 +107,7 @@ abstract class _$$MemberImplCopyWith<$Res> implements $MemberCopyWith<$Res> {
       {String? uid,
       String? email,
       int? pokeball,
+      int? numbers,
       @JsonKey(name: "login_at") DateTime? loginAt});
 }
 
@@ -119,6 +127,7 @@ class __$$MemberImplCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? email = freezed,
     Object? pokeball = freezed,
+    Object? numbers = freezed,
     Object? loginAt = freezed,
   }) {
     return _then(_$MemberImpl(
@@ -133,6 +142,10 @@ class __$$MemberImplCopyWithImpl<$Res>
       pokeball: freezed == pokeball
           ? _value.pokeball
           : pokeball // ignore: cast_nullable_to_non_nullable
+              as int?,
+      numbers: freezed == numbers
+          ? _value.numbers
+          : numbers // ignore: cast_nullable_to_non_nullable
               as int?,
       loginAt: freezed == loginAt
           ? _value.loginAt
@@ -149,6 +162,7 @@ class _$MemberImpl extends _Member {
       {this.uid,
       this.email,
       this.pokeball,
+      this.numbers,
       @JsonKey(name: "login_at") this.loginAt})
       : super._();
 
@@ -161,6 +175,9 @@ class _$MemberImpl extends _Member {
   final String? email;
   @override
   final int? pokeball;
+  @override
+  final int? numbers;
+//numbers of pokemon
 // ignore: invalid_annotation_target
   @override
   @JsonKey(name: "login_at")
@@ -168,7 +185,7 @@ class _$MemberImpl extends _Member {
 
   @override
   String toString() {
-    return 'Member(uid: $uid, email: $email, pokeball: $pokeball, loginAt: $loginAt)';
+    return 'Member(uid: $uid, email: $email, pokeball: $pokeball, numbers: $numbers, loginAt: $loginAt)';
   }
 
   @override
@@ -180,12 +197,14 @@ class _$MemberImpl extends _Member {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.pokeball, pokeball) ||
                 other.pokeball == pokeball) &&
+            (identical(other.numbers, numbers) || other.numbers == numbers) &&
             (identical(other.loginAt, loginAt) || other.loginAt == loginAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email, pokeball, loginAt);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, email, pokeball, numbers, loginAt);
 
   /// Create a copy of Member
   /// with the given fields replaced by the non-null parameter values.
@@ -208,6 +227,7 @@ abstract class _Member extends Member {
       {final String? uid,
       final String? email,
       final int? pokeball,
+      final int? numbers,
       @JsonKey(name: "login_at") final DateTime? loginAt}) = _$MemberImpl;
   const _Member._() : super._();
 
@@ -218,7 +238,10 @@ abstract class _Member extends Member {
   @override
   String? get email;
   @override
-  int? get pokeball; // ignore: invalid_annotation_target
+  int? get pokeball;
+  @override
+  int? get numbers; //numbers of pokemon
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: "login_at")
   DateTime? get loginAt;

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
+import 'package:pokemon/src/features/authentication/presentation/components/authentication_background.dart';
+import 'package:pokemon/src/features/authentication/presentation/components/sign_up_form_component.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_validation_cubit.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/signup_cubit.dart';
 import 'package:pokemon/src/injectable_service.dart';
@@ -61,24 +63,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
         ),
       ],
-      child: const SafeArea(
-          child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: defaultPadding,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: defaultPadding * 2,
-                ),
-              ],
-            ),
-          ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            const AuthenticationBackground(),
+            _buildForm(),
+          ],
         ),
-      )),
+      ),
+    );
+  }
+
+  Padding _buildForm() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: defaultPadding,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(
+              height: defaultPadding * 2,
+            ),
+            const Text(
+              "Let's Join Us!",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: defaultPadding,
+            ),
+            SignUpFormComponent(),
+          ],
+        ),
+      ),
     );
   }
 }
