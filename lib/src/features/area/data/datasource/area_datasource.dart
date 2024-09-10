@@ -19,7 +19,7 @@ class AreaDatasourceImpl implements AreaDatasource {
       final response = await request.fetchGql("area.q.gql",
           variables: Map.from({"limit": 3, "offset": 1}));
       final jsonBody = jsonDecode(response.body);
-      Logger.d("jsonBody $jsonBody");
+
       try {
         return (jsonBody['data']['locations']['results'] as List)
             .map((e) => e as Map<String, dynamic>)
@@ -30,6 +30,5 @@ class AreaDatasourceImpl implements AreaDatasource {
     } catch (e) {
       throw FetchException("$e");
     }
-    // return null;
   }
 }

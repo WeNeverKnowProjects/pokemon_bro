@@ -19,7 +19,7 @@ class PokeballGiftCubit extends Cubit<PokeballGiftState> {
     if (email == null && loginAt == null) return;
     var diff = DateTime.now().difference(loginAt!);
     var inMinutes = diff.inMinutes;
-    if (inMinutes > 4) {
+    if (inMinutes > 20) {
       Logger.d("timeout 1 executed");
       emit(state.copyWith(timerState: TimerState.timeout));
 
@@ -30,7 +30,7 @@ class PokeballGiftCubit extends Cubit<PokeballGiftState> {
       var currentDiff = DateTime.now().difference(loginAt);
       var currentMinuteDiff = currentDiff.inMinutes;
       Logger.d("minute diff running on $currentMinuteDiff");
-      if (currentMinuteDiff > 4) {
+      if (currentMinuteDiff > 20) {
         Logger.d("timeout 2 executed");
         timer.cancel();
         emit(state.copyWith(timerState: TimerState.timeout));
@@ -42,7 +42,7 @@ class PokeballGiftCubit extends Cubit<PokeballGiftState> {
           email: email,
         ));
       }
-      if (currentMinuteDiff % 2 == 0) {
+      if (currentMinuteDiff % 5 == 0) {
         emit(state.copyWith(
           timerState: TimerState.triggered,
           email: email,

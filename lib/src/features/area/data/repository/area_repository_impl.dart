@@ -20,10 +20,9 @@ class AreaRepositoryImpl implements AreaRepository {
 
       List<Area>? areas;
       if (items != null) {
-        Logger.d("items $items");
         areas = items.map((e) => Area.fromJson(e)).toList();
       }
-      Logger.d("areas ${areas?.length} $areas");
+
       return getItems<List<Area>?>(areas);
     } on UnsupportedFormatException catch (e) {
       return getError(FetchFailure(e.message));

@@ -6,9 +6,6 @@ import 'package:pokemon/src/features/pokemon/presentation/pokemon_screen.dart';
 
 GoRouter router({String? redirect}) => GoRouter(
       initialLocation: redirect ?? "/login",
-      redirect: (context, state) {
-        return "/pokemons";
-      },
       routes: [
         GoRoute(
           path: '/login',
@@ -23,14 +20,13 @@ GoRouter router({String? redirect}) => GoRouter(
             builder: (context, state) => AreaScreen.create(),
             routes: [
               GoRoute(
-                  path: 'pokemons',
-                  builder: (context, state) => PokemonScreen.create(
-                      "https://pokeapi.co/api/v2/location/1/")
-                  // PokemonScreen.create(state.extra as String),
-                  // PokemonScreen.create(
-                  //     "https://pokeapi.co/api/v2/location/1/")
-                  // PokemonScreen.create(state.extra as String),
-                  )
+                path: 'pokemons',
+                builder: (context, state) =>
+                    PokemonScreen.create(state.extra as String),
+                // PokemonScreen.create(
+                //     "https://pokeapi.co/api/v2/location/1/")
+                // PokemonScreen.create(state.extra as String),
+              )
             ]),
       ],
     );
