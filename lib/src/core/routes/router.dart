@@ -23,9 +23,6 @@ GoRouter router({String? redirect}) => GoRouter(
                 path: 'pokemons',
                 builder: (context, state) =>
                     PokemonScreen.create(state.extra as String),
-                // PokemonScreen.create(
-                //     "https://pokeapi.co/api/v2/location/1/")
-                // PokemonScreen.create(state.extra as String),
               )
             ]),
       ],

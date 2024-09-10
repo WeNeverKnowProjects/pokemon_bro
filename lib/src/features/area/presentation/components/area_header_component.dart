@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
 import 'package:pokemon/src/core/widgets/buttons/default_outlined_button.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
 import 'package:pokemon/src/core/widgets/image_network_wrapper.dart';
@@ -18,12 +19,14 @@ class AreaHeaderComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apptheme = context.watch<ThemesCubit>();
+    final darkMode = (apptheme.state?.darkMode ?? false);
     return Align(
       alignment: Alignment.topRight,
       child: InkWell(
         onTap: () {
           if (member.pokeball != null) {
-            showSetting(context);
+            showSetting(context, darkMode);
           }
         },
         child: Container(
@@ -31,7 +34,11 @@ class AreaHeaderComponent extends StatelessWidget {
           width: 34,
           alignment: Alignment.center,
           margin: const EdgeInsets.fromLTRB(
-              0, defaultPadding / 4, defaultPadding, 0),
+            0,
+            defaultPadding / 4,
+            defaultPadding,
+            0,
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -42,17 +49,19 @@ class AreaHeaderComponent extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(1),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black,
+                  color: darkMode
+                      ? Colors.black
+                      : const Color.fromARGB(255, 233, 189, 58),
                 ),
                 margin: const EdgeInsets.all(8),
                 alignment: Alignment.center,
                 child: Text(
                   "${member.pokeballBalance}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w900,
-                    color: Colors.amber,
+                    color: darkMode ? Colors.amber : Colors.black,
                     fontSize: 10,
                   ),
                   textAlign: TextAlign.center,
@@ -65,11 +74,13 @@ class AreaHeaderComponent extends StatelessWidget {
     );
   }
 
-  showSetting(BuildContext context) {
+  showSetting(BuildContext context, bool darkMode) {
     showModalBottomSheet(
         isScrollControlled: true,
         barrierColor: Colors.transparent,
-        backgroundColor: const Color.fromARGB(219, 46, 10, 10),
+        backgroundColor: darkMode
+            ? const Color.fromARGB(219, 46, 10, 10)
+            : const Color.fromARGB(219, 242, 242, 242),
         context: context,
         builder: (_) {
           return MultiBlocProvider(
@@ -102,7 +113,7 @@ class AreaHeaderComponent extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   )),
-                  child: _buildSettingsCard(context),
+                  child: _buildSettingsCard(context, darkMode),
                 ),
               ),
             ),
@@ -110,7 +121,7 @@ class AreaHeaderComponent extends StatelessWidget {
         });
   }
 
-  Widget _buildSettingsCard(BuildContext context) {
+  Widget _buildSettingsCard(BuildContext context, bool darkMode) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -129,7 +140,8 @@ class AreaHeaderComponent extends StatelessWidget {
                             size: 28,
                           ),
                           "out ",
-                          state?.numbers ?? 0);
+                          state?.numbers ?? 0,
+                          darkMode);
                     },
                   ),
                   const Text("Pokeball Numbers"),
@@ -142,7 +154,8 @@ class AreaHeaderComponent extends StatelessWidget {
                             size: 28,
                           ),
                           "in",
-                          state?.pokeballBalance ?? 0);
+                          state?.pokeballBalance ?? 0,
+                          darkMode);
                     },
                   ),
                 ],
@@ -235,7 +248,8 @@ class AreaHeaderComponent extends StatelessWidget {
     );
   }
 
-  Widget _buildPokeballNumber(Widget icon, String status, int numbers) {
+  Widget _buildPokeballNumber(
+      Widget icon, String status, int numbers, bool darkMode) {
     return Row(
       children: [
         icon,
@@ -248,12 +262,15 @@ class AreaHeaderComponent extends StatelessWidget {
                 text: "$status ",
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
-                  color: Colors.grey.shade400,
+                  color: darkMode
+                      ? Colors.grey.shade400
+                      : const Color.fromARGB(255, 24, 23, 23),
                 )),
             TextSpan(
                 text: "$numbers",
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
+                  color: darkMode ? Colors.white : Colors.black,
                 ))
           ]),
         ),

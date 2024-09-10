@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
 import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/features/area/presentation/components/area_header_component.dart';
 import 'package:pokemon/src/features/authentication/domain/entities/member.dart';
@@ -43,6 +44,7 @@ class _AreaScreenState extends State<AreaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final apptheme = context.watch<ThemesCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthChangeCubit, Member?>(listener: (context, snapshot) {
@@ -66,7 +68,12 @@ class _AreaScreenState extends State<AreaScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            const AppBackground(assetImage: "assets/images/area-bg.jpg"),
+            AppBackground(
+              assetImage: "assets/images/area-bg.jpg",
+              blurColor: (apptheme.state?.darkMode ?? false)
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.1),
+            ),
             ListView(
               children: [
                 const SizedBox(
@@ -107,6 +114,8 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 
   Widget buildListBuilder(List<Area> areas) {
+    final apptheme = context.watch<ThemesCubit>();
+    final darkmode = (apptheme.state?.darkMode ?? false);
     return MasonryGridView.count(
         itemCount: areas.length,
         crossAxisCount: 3,
@@ -123,11 +132,13 @@ class _AreaScreenState extends State<AreaScreen> {
               Logger.d("area url ${area.url}");
               context.go('/pokemons', extra: area.url as String);
             },
+            darkMode: darkmode,
           );
         });
   }
 
-  Widget buildListAreaCard(Area area, int index, {Function(Area area)? onTap}) {
+  Widget buildListAreaCard(Area area, int index,
+      {Function(Area area)? onTap, required bool darkMode}) {
     return InkWell(
       onTap: () {
         if (onTap != null) {
@@ -142,8 +153,11 @@ class _AreaScreenState extends State<AreaScreen> {
             height: (index % 3 + 1) * 80,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Color((((index % 5 + 1) * 30) * 0xFFFF00).toInt())
-                  .withOpacity(0.5),
+              color: darkMode
+                  ? Color((((index % 5 + 1) * 30) * 0xFFFF00).toInt())
+                      .withOpacity(0.5)
+                  : Color((((index % 5 + 1) * 30) * 0xFFFFFF).toInt())
+                      .withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
             ),
             alignment: Alignment.center,

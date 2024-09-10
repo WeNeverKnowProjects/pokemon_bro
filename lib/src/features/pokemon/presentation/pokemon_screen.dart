@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
 import 'package:pokemon/src/core/enums/enums.dart';
 import 'package:pokemon/src/core/log/logger.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
 import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_change_cubit.dart';
@@ -53,6 +54,8 @@ class _PokemonScreenState extends State<PokemonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final apptheme = context.watch<ThemesCubit>();
+    final darkmode = (apptheme.state?.darkMode ?? false);
     return BlocListener<CatchPokemonCubit, CatchPokemonState>(
       listener: (context, state) {
         if (state.catchState == LoadState.loading) {
@@ -74,7 +77,12 @@ class _PokemonScreenState extends State<PokemonScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            const AppBackground(assetImage: "assets/images/area-bg.jpg"),
+            AppBackground(
+              assetImage: "assets/images/area-bg.jpg",
+              blurColor: darkmode
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.3),
+            ),
             SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
