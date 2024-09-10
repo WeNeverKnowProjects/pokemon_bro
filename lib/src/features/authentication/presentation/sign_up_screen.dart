@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
 import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
 import 'package:pokemon/src/features/authentication/presentation/components/sign_up_form_component.dart';
@@ -32,6 +33,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
+    var apptheme = context.watch<ThemesCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthValidationCubit, AuthValidationState>(
@@ -67,8 +69,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            const AppBackground(
-                assetImage: "assets/images/cartoon-dragon-character.jpg"),
+            AppBackground(
+              assetImage: (apptheme.state?.darkMode ?? false)
+                  ? "assets/images/cartoon-dragon-character.jpg"
+                  : "assets/images/light-bg.jpg",
+              blurColor: (apptheme.state?.darkMode ?? false)
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.2),
+            ),
             _buildForm(),
           ],
         ),

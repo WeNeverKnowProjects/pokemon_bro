@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/src/core/constants/constants.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
+import 'package:pokemon/src/core/themes/themes.dart';
 import 'package:pokemon/src/core/widgets/app_background.dart';
 import 'package:pokemon/src/core/widgets/dialog_widget.dart';
 
@@ -29,7 +31,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var apptheme = context.watch<ThemesCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener<LoginCubit, LoginState>(
@@ -69,10 +71,22 @@ class _LoginScreenState extends State<LoginScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            // const AuthenticationBackground(),
-            const AppBackground(
-                assetImage: "assets/images/cartoon-dragon-character.jpg"),
-            _buildTitle(),
+            AppBackground(
+              assetImage: (apptheme.state?.darkMode ?? false)
+                  ? "assets/images/cartoon-dragon-character.jpg"
+                  : "assets/images/light-bg.jpg",
+              blurColor: (apptheme.state?.darkMode ?? false)
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.2),
+            ),
+            _buildTitle(
+              (apptheme.state?.darkMode ?? false)
+                  ? "assets/images/pokemon-label.png"
+                  : "assets/images/pokemon-label-light.png",
+              (apptheme.state?.darkMode ?? false)
+                  ? "assets/images/pokemon-sub-label.png"
+                  : "assets/images/pokemon-sub-label-light.png",
+            ),
             // _buildBody(),
           ],
         ),
@@ -80,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(String imageLabel, String imageSubLabel) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -88,8 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset("assets/images/pokemon-label.png"),
-              Image.asset("assets/images/pokemon-sub-label.png"),
+              Image.asset(imageLabel),
+              Image.asset(imageSubLabel),
               _buildBody(),
             ],
           ),

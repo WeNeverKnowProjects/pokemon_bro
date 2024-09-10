@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/src/core/config/environment.dart';
 import 'package:pokemon/src/core/log/logger.dart';
 import 'package:pokemon/src/core/routes/router.dart';
+import 'package:pokemon/src/core/themes/cubit/themes_cubit.dart';
+import 'package:pokemon/src/core/themes/themes.dart';
 import 'package:pokemon/src/features/authentication/domain/entities/member.dart';
 import 'package:pokemon/src/features/authentication/presentation/cubit/auth_change_cubit.dart';
 import 'package:pokemon/src/features/pokemon/presentation/cubit/pokeball_gift_cubit.dart';
@@ -39,6 +41,10 @@ Future<void> main() async {
         value: getIt<PokeballGiftCubit>(),
         // create: (context) => getIt<PokeballGiftCubit>(),
       ),
+      BlocProvider.value(
+        value: getIt<ThemesCubit>(),
+        // create: (context) => getIt<PokeballGiftCubit>(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -50,35 +56,42 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    context.read<ThemesCubit>().getTheme(context, ThemeMode.system);
     return StreamBuilder<Member?>(
         stream: context.read<AuthChangeCubit>().authStateChange(),
         builder: (context, snapshot) {
           Logger.d("data ${snapshot.data}");
           var redirect = snapshot.data == null ? null : "/";
 
-          return BlocListener<AuthChangeCubit, Member?>(
-            listener: (context, state) {
-              if (state?.loginAt != null) {
-                initTimer(context);
-              }
-            },
-            child: MaterialApp.router(
-              title: 'Pokemon App',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                // bottomSheetTheme: const BottomSheetThemeData(
-                //   backgroundColor: Color.fromARGB(96, 73, 7, 7),
-                // ),
-                textTheme: Theme.of(context).textTheme.apply(
-                      bodyColor: Colors.white,
-                      displayColor: Colors.white,
-                    ),
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
+          return MultiBlocListener(
+            listeners: [
+              BlocListener<AuthChangeCubit, Member?>(
+                listener: (context, state) {
+                  if (state?.loginAt != null) {
+                    initTimer(context);
+                  }
+                },
               ),
-              routerConfig: router(redirect: redirect),
-
-              // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+            ],
+            child: BlocBuilder<ThemesCubit, AppTheme?>(
+              builder: (context, state) {
+                Logger.d("AppTheme ${ThemeMode.system.name} ${state?.mode}");
+                return MaterialApp.router(
+                  title: 'Pokemon App',
+                  debugShowCheckedModeBanner: false,
+                  // themeMode: ThemeMode.system,
+                  theme: state?.themes,
+                  // theme: ThemeData(
+                  //   textTheme: Theme.of(context).textTheme.apply(
+                  //         bodyColor: Colors.white,
+                  //         displayColor: Colors.white,
+                  //       ),
+                  //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                  //   useMaterial3: true,
+                  // ),
+                  routerConfig: router(redirect: redirect),
+                );
+              },
             ),
           );
         });

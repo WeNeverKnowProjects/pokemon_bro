@@ -20,6 +20,7 @@ import 'core/firebase/firestore/firestore_service.dart' as _i948;
 import 'core/firebase/module/firebase_module.dart' as _i25;
 import 'core/graphql/parser.dart' as _i603;
 import 'core/request/fetch_request.dart' as _i295;
+import 'core/themes/cubit/themes_cubit.dart' as _i742;
 import 'features/area/data/datasource/area_datasource.dart' as _i192;
 import 'features/area/data/repository/area_repository_impl.dart' as _i383;
 import 'features/area/domain/repository/area_repository.dart' as _i101;
@@ -75,6 +76,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i320.AppEnvironment>(() => _i320.AppEnvironment());
     gh.singleton<_i59.FirebaseAuth>(() => firebaseModule.auth);
     gh.singleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
+    gh.singleton<_i742.ThemesCubit>(() => _i742.ThemesCubit());
     gh.lazySingleton<_i112.PokeballGiftCubit>(() => _i112.PokeballGiftCubit());
     gh.singleton<_i1022.FirebaseAuthentication>(
         () => _i1022.FirebaseAuthenticationImpl(gh<_i59.FirebaseAuth>()));
@@ -106,12 +108,12 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i953.LoginWithEmailUsecase>(() =>
         _i953.LoginWithEmailUsecase(gh<_i972.AuthenticationRepository>()));
+    gh.lazySingleton<_i245.LoadMemberUsecase>(
+        () => _i245.LoadMemberUsecase(gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i862.SignUpUsecase>(
         () => _i862.SignUpUsecase(gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i211.SignOutUsecase>(
         () => _i211.SignOutUsecase(gh<_i972.AuthenticationRepository>()));
-    gh.lazySingleton<_i245.LoadMemberUsecase>(
-        () => _i245.LoadMemberUsecase(gh<_i972.AuthenticationRepository>()));
     gh.lazySingleton<_i101.AreaRepository>(
         () => _i383.AreaRepositoryImpl(gh<_i192.AreaDatasource>()));
     gh.factory<_i57.AuthChangeCubit>(() => _i57.AuthChangeCubit(

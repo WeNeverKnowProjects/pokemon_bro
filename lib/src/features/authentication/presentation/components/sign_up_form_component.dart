@@ -36,7 +36,6 @@ class SignUpFormComponent extends StatelessWidget {
                     },
                     prefixIcon: const Icon(
                       Icons.mail_outline_rounded,
-                      color: Colors.white,
                     ))).child);
           },
         ),
@@ -60,7 +59,6 @@ class SignUpFormComponent extends StatelessWidget {
                     },
                     prefixIcon: const Icon(
                       Icons.lock_outline_rounded,
-                      color: Colors.white,
                     ))).child);
           },
         ),
@@ -82,7 +80,6 @@ class SignUpFormComponent extends StatelessWidget {
                     },
                     prefixIcon: const Icon(
                       Icons.lock_outline_rounded,
-                      color: Colors.white,
                     ))).child);
           },
         ),
