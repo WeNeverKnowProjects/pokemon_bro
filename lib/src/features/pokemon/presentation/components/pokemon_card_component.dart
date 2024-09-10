@@ -24,9 +24,9 @@ class PokemonCardComponent extends StatelessWidget {
       height: 320 * scale,
       decoration: BoxDecoration(
           color: backgroundColor, borderRadius: BorderRadius.circular(12)),
-      // padding: const EdgeInsets.symmetric(
-      //   vertical: defaultPadding,
-      // ),
+      padding: EdgeInsets.all(
+        defaultPadding / 4 * scale,
+      ),
       alignment: Alignment.bottomCenter,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,16 +34,20 @@ class PokemonCardComponent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                "Min. Level ${pokemon.minLevel}",
-                style: const TextStyle(
-                  fontStyle: FontStyle.italic,
+              Flexible(
+                child: Text(
+                  "Min. Level ${pokemon.minLevel}",
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, fontSize: 14 * scale),
+                  overflow: TextOverflow.clip,
                 ),
               ),
-              Text(
-                "Max. Level ${pokemon.maxLevel}",
-                style: const TextStyle(
-                  fontStyle: FontStyle.italic,
+              Flexible(
+                child: Text(
+                  "Max. Level ${pokemon.maxLevel}",
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, fontSize: 14 * scale),
+                  overflow: TextOverflow.clip,
                 ),
               )
             ],
@@ -64,11 +68,14 @@ class PokemonCardComponent extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Text(
-            (pokemon.name ?? "-").toUpperCase(),
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+          Flexible(
+            child: Text(
+              (pokemon.name ?? "-").toUpperCase(),
+              style: TextStyle(
+                fontSize: 24 * scale,
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.clip,
             ),
           ),
         ],
